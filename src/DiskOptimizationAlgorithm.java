@@ -256,5 +256,78 @@ public class DiskOptimizationAlgorithm {
 
 		return lookSplicedArr2;
 	}
+	
+	/*
+	 * FOLLOWING TWO METHOD ARE FOR PLOTTING PURPOSE ONLY
+	 * both include a null value to plot the discontinuous line between boundary seek values
+	 * use clook() or cscan() to display sequence without null values.
+	 * 
+	 */
+	
+	public List<Integer> cscanPlot() {
+
+		List<Integer> aSeq = new ArrayList<Integer>(sequence);
+
+		int direction = previous - current;
+		
+		// Adding cylinder boundaries if the given sequence do not have them
+		if (!aSeq.contains(4999)) {
+			aSeq.add(4999);
+		}
+		if (!aSeq.contains(0)) {
+			aSeq.add(0);
+		}
+
+		if (direction < 0) { // increasing
+			Collections.sort(aSeq);
+		} else if (direction > 0) { // decreasing
+			Collections.sort(aSeq);
+			Collections.reverse(aSeq);
+		} else {
+			// do nothing
+		}
+		
+		// This is for plotting purpose, to simulate discontinuous line between the boundary seek
+		// Should remove the null when displaying the sequence
+		aSeq.add(null);
+
+		int currentCylinderIndex = aSeq.indexOf(current);
+
+		List<Integer> scanSplicedArr1 = aSeq.subList(0, currentCylinderIndex);
+		List<Integer> scanSplicedArr2 = aSeq.subList(currentCylinderIndex,
+				aSeq.size());
+
+		scanSplicedArr2.addAll(scanSplicedArr1);
+
+		return scanSplicedArr2;
+	}
+	
+	public List<Integer> clookPlot() {
+
+		List<Integer> aSeq = new ArrayList<Integer>(sequence);
+
+		int direction = previous - current;
+
+		if (direction < 0) {// increasing
+			Collections.sort(aSeq);
+		} else if (direction > 0) {// decreasing
+			Collections.sort(aSeq);
+			Collections.reverse(aSeq);
+		}
+		
+		// This is for plotting purpose, to simulate discontinuous line between the boundary seek
+		// Should remove the null when displaying the sequence
+		aSeq.add(null);
+
+		int currentCylinderIndex = aSeq.indexOf(current);
+
+		List<Integer> lookSplicedArr1 = aSeq.subList(0, currentCylinderIndex);
+		List<Integer> lookSplicedArr2 = aSeq.subList(currentCylinderIndex,
+				aSeq.size());
+
+		lookSplicedArr2.addAll(lookSplicedArr1);
+
+		return lookSplicedArr2;
+	}
 
 }
