@@ -92,7 +92,7 @@ public class DiskMovementPlot extends JPanel {
         // create the chart...
         final JFreeChart chart = ChartFactory.createXYLineChart(
             "Line Chart Demo 6",      // chart title
-            "X",                      // x axis label
+            "X123",                      // x axis label
             "Y",                      // y axis label
             dataset,                  // data
             PlotOrientation.HORIZONTAL,
