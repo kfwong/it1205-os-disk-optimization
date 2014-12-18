@@ -1,39 +1,39 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-import javax.swing.JTextField;
-import java.awt.Color;
-
-import org.apache.commons.lang3.StringUtils;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.border.EmptyBorder;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.CardLayout;
+import org.apache.commons.lang3.StringUtils;
 
-import javax.swing.ImageIcon;
-
-import java.awt.ComponentOrientation;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class Main extends JFrame {
 
+	private static final long serialVersionUID = 4763654654704068576L;
 	private JPanel contentPane;
 	private JLabel lblError;
 	private JTextField txtPrevious;
@@ -52,16 +52,17 @@ public class Main extends JFrame {
 	private JCheckBox cbLOOK = new JCheckBox("Plot Graph");
 	private JCheckBox cbCSCAN = new JCheckBox("Plot Graph");
 	private JCheckBox cbCLOOK = new JCheckBox("Plot Graph");
+	private JButton btnPrint = new JButton("Print");
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				try {
-					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+					for (LookAndFeelInfo info : UIManager
+							.getInstalledLookAndFeels()) {
 						if ("Nimbus".equals(info.getName())) {
 							UIManager.setLookAndFeel(info.getClassName());
 							break;
@@ -69,34 +70,15 @@ public class Main extends JFrame {
 					}
 					Main frame = new Main();
 					frame.setVisible(true);
+					// Fixed frame size
+					frame.setResizable(false);
+					// Centralize the frame when started
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-
-		int previousCylinder = 700;
-		int currentCylinder = 857;
-		ArrayList<Integer> inputSequence = new ArrayList<Integer>();
-		inputSequence.add(751);
-		inputSequence.add(4505);
-		inputSequence.add(757);
-		inputSequence.add(3506);
-		inputSequence.add(4578);
-		inputSequence.add(50);
-		inputSequence.add(351);
-		inputSequence.add(22);
-		inputSequence.add(1058);
-
-		DiskOptimizationAlgorithm algo = new DiskOptimizationAlgorithm(previousCylinder, currentCylinder, inputSequence);
-
-		System.out.println(algo.fcfs());
-		System.out.println(algo.sstf());
-		System.out.println(algo.scan());
-		System.out.println(algo.look());
-		System.out.println(algo.cscan());
-		System.out.println(algo.clook());
-
 	}
 
 	/**
@@ -105,7 +87,7 @@ public class Main extends JFrame {
 	public Main() {
 		setTitle("Disk Optimization");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1032, 677);
+		setBounds(100, 100, 1030, 700);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setForeground(Color.GRAY);
@@ -117,39 +99,36 @@ public class Main extends JFrame {
 		panel.setBackground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new FormLayout(new ColumnSpec[] {
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,},
-			new RowSpec[] {
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,}));
+				FormFactory.RELATED_GAP_COLSPEC, FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC, }, new RowSpec[] {
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC, FormFactory.RELATED_GAP_ROWSPEC, }));
 
 		lblError = new JLabel("Error: Malform sequence.");
-		lblError.setIcon(new ImageIcon(Main.class.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
-		panel.add(lblError, "2, 1, 5, 1");
+		lblError.setIcon(new ImageIcon(
+				Main.class
+						.getResource("/com/sun/java/swing/plaf/windows/icons/Error.gif")));
+		panel.add(lblError, "2, 1, 3, 1");
 		lblError.setForeground(Color.RED);
+
+		btnPrint.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				print();
+			}
+		});
+		panel.add(btnPrint, "6, 1");
 
 		JLabel lblPrevious = new JLabel("Previous");
 		panel.add(lblPrevious, "2, 3, right, default");
@@ -216,7 +195,7 @@ public class Main extends JFrame {
 				refresh();
 			}
 		});
-		
+
 		panel.add(cbSSTF, "6, 11");
 
 		JLabel lblScan = new JLabel("SCAN");
@@ -258,28 +237,42 @@ public class Main extends JFrame {
 		});
 
 		panel.add(cbCSCAN, "6, 17");
-		
+
 		JLabel lblClook = new JLabel("C-LOOK");
 		panel.add(lblClook, "2, 19, right, default");
-		
+
 		panel.add(lblCLOOK, "4, 19");
 		cbCLOOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refresh();
 			}
 		});
-		
+
 		panel.add(cbCLOOK, "6, 19");
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		contentPane.add(panel_1, BorderLayout.NORTH);
-		panel_1.setLayout(new CardLayout(0, 0));
+		JPanel graph = new JPanel();
+		graph.setBackground(Color.WHITE);
+		contentPane.add(graph, BorderLayout.NORTH);
+		graph.setLayout(new CardLayout(0, 0));
 
 		refresh();
 	}
 
-	private void refresh() {
+	private void print() {
+		DiskOptimizationAlgorithm algo = refresh();
+
+		if (algo != null) {
+			System.out.println("FCFS :" + algo.fcfs());
+			System.out.println("SSTF :" + algo.sstf());
+			System.out.println("SCAN :" + algo.scan());
+			System.out.println("LOOK :" + algo.look());
+			System.out.println("C-SCAN :" + algo.cscan());
+			System.out.println("C-LOOK :" + algo.clook());
+			System.out.println("");
+		}
+	}
+
+	private DiskOptimizationAlgorithm refresh() {
 		int previous = 0;
 		int current = 0;
 		List<Integer> sequence = new ArrayList<Integer>();
@@ -289,14 +282,16 @@ public class Main extends JFrame {
 				previous = Integer.parseInt(txtPrevious.getText());
 				lblError.setText("");
 			} catch (NumberFormatException ex) {
-				throw new Exception("Previous: Invalid number format. Only integer allowed.");
+				throw new Exception(
+						"Previous: Invalid number format. Only integer allowed.");
 			}
 
 			try {
 				current = Integer.parseInt(txtCurrent.getText());
 				lblError.setText("");
 			} catch (NumberFormatException ex) {
-				throw new Exception("Current: Invalid number format. Only integer allowed.");
+				throw new Exception(
+						"Current: Invalid number format. Only integer allowed.");
 			}
 
 			try {
@@ -306,9 +301,10 @@ public class Main extends JFrame {
 				}
 				lblError.setText("");
 			} catch (NumberFormatException ex) {
-				throw new Exception("Sequence: Invalid sequence format. Only integer allowed. Multiple values seperated by comma (,). i.e: 1000,2000,3000");
+				throw new Exception(
+						"Sequence: Invalid sequence format. Only integer allowed. Multiple values seperated by comma (,). i.e: 1000,2000,3000");
 			}
-			
+
 			if (lblError.getText().isEmpty()) {
 				lblError.setVisible(false);
 				if (diskMovementPlot != null) {
@@ -316,31 +312,38 @@ public class Main extends JFrame {
 					diskMovementPlot = null;
 				}
 
-				DiskOptimizationAlgorithm doa = new DiskOptimizationAlgorithm(previous, current, sequence);
-				diskMovementPlot = new DiskMovementPlot(doa, 
-						cbFCFS.isSelected(),
-						cbSSTF.isSelected(),
-						cbSCAN.isSelected(),
-						cbLOOK.isSelected(),
-						cbCSCAN.isSelected(),
-						cbCLOOK.isSelected());
-				diskMovementPlot.setBackground(Color.WHITE);
-				contentPane.add(diskMovementPlot, BorderLayout.CENTER);
-				
-				lblFCFS.setText(StringUtils.join(doa.fcfs(), ","));
-				lblSSTF.setText(StringUtils.join(doa.sstf(), ","));
-				lblSCAN.setText(StringUtils.join(doa.scan(), ","));
-				lblLOOK.setText(StringUtils.join(doa.look(), ","));
-				lblCSCAN.setText(StringUtils.join(doa.cscan(), ","));
-				lblCLOOK.setText(StringUtils.join(doa.clook(), ","));
+				DiskOptimizationAlgorithm doa = new DiskOptimizationAlgorithm(
+						previous, current, sequence);
+				drawGraph(doa);
 
-				this.repaint();
-				this.revalidate();
+				return doa;
 			}
 		} catch (Exception ex) {
 			lblError.setVisible(true);
 			lblError.setText(ex.getMessage());
 		}
+
+		return null;
 	}
 
+	private void drawGraph(DiskOptimizationAlgorithm doa) {
+		if (doa != null) {
+			diskMovementPlot = new DiskMovementPlot(doa, cbFCFS.isSelected(),
+					cbSSTF.isSelected(), cbSCAN.isSelected(),
+					cbLOOK.isSelected(), cbCSCAN.isSelected(),
+					cbCLOOK.isSelected());
+			diskMovementPlot.setBackground(Color.WHITE);
+			contentPane.add(diskMovementPlot, BorderLayout.CENTER);
+
+			lblFCFS.setText(StringUtils.join(doa.fcfs(), ","));
+			lblSSTF.setText(StringUtils.join(doa.sstf(), ","));
+			lblSCAN.setText(StringUtils.join(doa.scan(), ","));
+			lblLOOK.setText(StringUtils.join(doa.look(), ","));
+			lblCSCAN.setText(StringUtils.join(doa.cscan(), ","));
+			lblCLOOK.setText(StringUtils.join(doa.clook(), ","));
+
+			this.repaint();
+			this.revalidate();
+		}
+	}
 }
