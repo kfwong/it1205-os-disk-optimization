@@ -296,7 +296,10 @@ public class Main extends JFrame {
 
 			try {
 				sequence = new ArrayList<Integer>();
-				for (String term : txtSequence.getText().split(",")) {
+				// Delete all the white spaces
+				String seqTxt = StringUtils.deleteWhitespace(txtSequence
+						.getText());
+				for (String term : seqTxt.split(",")) {
 					sequence.add(Integer.parseInt(term));
 				}
 				lblError.setText("");
